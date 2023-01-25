@@ -20,7 +20,9 @@ Popular datasets evaluated on multiple libraries.
 
 
 
-## ... (GNN)
+## Cora (GNN)
+
+ * From scratch (C++)
 
 
 
