@@ -1,0 +1,105 @@
+workspace(name = "main")
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# Depend on com_google_differential_privacy and com_google_cc_differential_privacy (bazel projects)
+http_archive(
+    name = "com_google_differential_privacy",
+    url = "https://github.com/google/differential-privacy/archive/c43b065fc4221b5d104e9a9c3927f3162bed31fd.zip",
+    sha256 = "cb0a6a1af88ba5002d4b669c91d7a47de5a5c4840ec738a247583a45d3b15bf0",
+    strip_prefix = "differential-privacy-c43b065fc4221b5d104e9a9c3927f3162bed31fd",
+)
+http_archive(
+    name = "com_google_cc_differential_privacy",
+    url = "https://github.com/google/differential-privacy/archive/c43b065fc4221b5d104e9a9c3927f3162bed31fd.zip",
+    sha256 = "cb0a6a1af88ba5002d4b669c91d7a47de5a5c4840ec738a247583a45d3b15bf0",
+    strip_prefix = "differential-privacy-c43b065fc4221b5d104e9a9c3927f3162bed31fd/cc",
+)
+
+load("@com_google_differential_privacy//:differential_privacy_deps.bzl", "differential_privacy_deps")
+differential_privacy_deps()
+
+load("@com_google_cc_differential_privacy//:cc_differential_privacy_deps.bzl", "cc_differential_privacy_deps")
+cc_differential_privacy_deps()
+
+
+
+
+
+#load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+#protobuf_deps()
+
+# Protobuf
+http_archive(
+    name = "com_google_protobuf",
+    url = "https://github.com/protocolbuffers/protobuf/releases/download/v21.9/protobuf-all-21.9.tar.gz",
+    sha256 = "c00f05e19e89b04ea72e92a3c204eedda91f871cd29b0bbe5188550d783c73c7",
+    strip_prefix = "protobuf-21.9",
+)# Protobuf transitive dependencies.
+
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+protobuf_deps()
+
+
+
+########################################
+# source dependencies built with CMake #
+########################################
+
+_ALL_CONTENT = """\
+filegroup(
+    name = "all_srcs",
+    srcs = glob(["**"]),
+    visibility = ["//visibility:public"],
+)
+"""
+
+# Setup rules_foreign_cc (CMake integration)
+http_archive(
+    name = "rules_foreign_cc",
+    strip_prefix = "rules_foreign_cc-8d540605805fb69e24c6bf5dc885b0403d74746a", # 0.9.0
+    url = "https://github.com/bazelbuild/rules_foreign_cc/archive/8d540605805fb69e24c6bf5dc885b0403d74746a.tar.gz",
+)
+
+load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
+
+rules_foreign_cc_dependencies()
+
+
+
+###########
+# NN Libs #
+###########
+
+# arrayfire
+http_archive(
+      name = "arrayfire",
+      #build_file_content = _ALL_CONTENT,
+      build_file = "//:third_party/arrayfire.BUILD",
+      sha256 = "2d01b35adade2433078f57e2233844679aabfdb06a41e6992a6b27c65302d3fe",
+      strip_prefix = "arrayfire-full-3.8.2",
+      urls = ["https://github.com/arrayfire/arrayfire/releases/download/v3.8.2/arrayfire-full-3.8.2.tar.bz2"],
+)
+
+# oneDNN
+http_archive(
+      name = "oneDNN",
+      #build_file_content = _ALL_CONTENT,
+      build_file = "//:third_party/oneDNN.BUILD",
+      sha256 = "0ff70240378aa26e1fc3edf66d14964e614ef2f9278514182cd43b34ced9af21",
+      strip_prefix = "oneDNN-2.6.1",
+      urls = ["https://github.com/oneapi-src/oneDNN/archive/refs/tags/v2.6.1.tar.gz"],
+)
+
+# flashlight
+http_archive(
+      name = "flashlight",
+      #build_file_content = _ALL_CONTENT,
+      build_file = "//:third_party/flashlight.BUILD",
+      sha256 = "6557f65ef2fbacc867bb6721d9134d0bc15d29e7413cbce0ae5e28d857164029",
+      strip_prefix = "flashlight-0.3.2",
+      urls = ["https://github.com/flashlight/flashlight/archive/refs/tags/v0.3.2.tar.gz"],
+)
+
+
+

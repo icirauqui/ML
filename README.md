@@ -1,6 +1,8 @@
 # Machine Learning
 
-Popular datasets evaluated on multiple libraries.
+Popular datasets evaluated using multiple popular ML frameworks and algorithms.
+
+Each runtime folder is a self contained project that can be run without external dependencies. The only exception is the `datasets` folder, which contains the datasets used in the paper.
 
 
 ## MNIST Dataset (CNN and Dense)
@@ -11,7 +13,13 @@ Popular datasets evaluated on multiple libraries.
  * Shogun (C++)
  * FlashLight (Cpp)
  * Linfa (Rust)
- 
+
+## Diabetes datset (LR, NN)
+
+ * Keras (Python)
+
+
+
 ## Kaggle's Nerve Dataset (UNET) 
 
 
