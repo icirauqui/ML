@@ -11,7 +11,7 @@ Each runtime folder is a self contained project that can be run without external
  * PyTorch (Python)
  * Sci-Kit Learn (Python)
  * Shogun (C++)
- * FlashLight (Cpp)
+ * FlashLight (C++)
  * Linfa (Rust)
 
 ## Diabetes datset (LR, NN)
@@ -30,8 +30,14 @@ Each runtime folder is a self contained project that can be run without external
 
 ## Cora (GNN)
 
+ * DGL (Python)
  * From scratch (C++)
 
+
+## Zachary's Karate Club 
+
+ * From scratch (Python)
+ * From scratch (C++)
 
 
 
